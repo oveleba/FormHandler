@@ -1,0 +1,12 @@
+services:
+    veleba.form_handler.form.handler:
+        class: Veleba\FormHandlerBundle\Form\Handler\FormHandler
+        arguments: [ "@event_dispatcher" ]
+        calls:
+            - [ setFormFactory, [ "@form.factory" ] ]
+        abstract: true
+
+    veleba.form_handler.form.handler.persistence:
+        class: Veleba\FormHandlerBundle\Form\Handler\PersistenceFormHandler
+        parent: veleba.form_handler.form.handler
+        arguments: [ '@= service("doctrine").getManager()' ]
